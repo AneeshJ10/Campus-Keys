@@ -8,15 +8,15 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const router = useRouter();
 
-  useEffect(() => {
-    const testConnection = async () => {
-      const { data, error } = await supabase.from("test").select("*")
-      console.log("✅ Supabase data:", data)
-      console.log("❌ Supabase error:", error)
-    }
+  // useEffect(() => {
+  //   const testConnection = async () => {
+  //     const { data, error } = await supabase.from("test").select("*")
+  //     console.log("✅ Supabase data:", data)
+  //     console.log("❌ Supabase error:", error)
+  //   }
 
-    testConnection()
-  }, [])
+  //   testConnection()
+  // }, [])
 
   return (
 <div className="min-h-screen flex flex-col">
