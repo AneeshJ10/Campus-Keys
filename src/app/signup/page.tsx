@@ -1,64 +1,3 @@
-// "use client"
-
-// import { useState } from "react"
-// import { supabase } from "@/lib/supabase"
-// import { useRouter } from "next/navigation"
-// import { userAgent } from "@/node_modules/next/server"
-
-// export default function Signup() {
-//   const router = useRouter()
-//   const [email, setEmail] = useState("")
-//   const [password, setPassword] = useState("")
-//   const [error, setError] = useState("")
-
-//   const handleSignup = async (e: React.FormEvent) => {
-//     e.preventDefault()
-//     const { data, error } = await supabase.auth.signUp({
-//       email,
-//       password,
-//     })
-//     if (error) {
-//       setError(error.message)
-//     } else if(data.user){
-//       router.push("/login")
-//     }
-//     //else {
-//     //  router.push("/login")
-//     //}
-//   }
-
-//   return (
-//     <main className="flex flex-col items-center justify-center min-h-screen p-4">
-//       <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
-//       <form onSubmit={handleSignup} className="w-full max-w-sm space-y-4">
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           className="w-full p-2 border border-gray-300 rounded"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           className="w-full p-2 border border-gray-300 rounded"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button
-//           type="submit"
-//           className="w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-//         >
-//           Sign Up
-//         </button>
-//         {error && <p className="text-red-600">{error}</p>}
-//       </form>
-//     </main>
-//   )
-// }
-
 "use client"
 
 import { useState } from "react"
@@ -79,7 +18,7 @@ export default function Signup() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Step 1: Auth sign up
+    // Step 1: Auth sign up with Supabase
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
@@ -96,9 +35,10 @@ export default function Signup() {
       return
     }
 
-    // Step 2: Insert into `User` table (matching Supabase schema)
+    // Step 2: Insert into `User` table, using email_id field from your database
     const { error: insertError } = await supabase.from("User").insert({
-      id: user.id, // Matches Supabase auth UUID
+      id: user.id,            // Matches Supabase auth UUID
+      email_id: email,        // ✅ Correctly matches your schema
       first_name: firstName,
       last_name: lastName,
       school,
@@ -110,7 +50,7 @@ export default function Signup() {
       return
     }
 
-    // Step 3: Redirect
+    // Step 3: Redirect to homepage (or another page)
     router.push("/")
   }
 

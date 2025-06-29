@@ -14,7 +14,6 @@ export default function CreateListing() {
   const [endDate, setEndDate] = useState("")
   const [error, setError] = useState("")
   const [userId, setUserId] = useState<string | null>(null)
-  const [imageUrl, setImageUrl] = useState("")
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,7 +38,6 @@ export default function CreateListing() {
       start_date: startDate,
       end_date: endDate,
       user_id: userId,
-      image_url: imageUrl,
     })
 
     if (insertError) {
@@ -98,15 +96,6 @@ export default function CreateListing() {
           className="w-full p-2 border rounded"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Image URL"
-          className="w-full p-2 border rounded"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
           required
         />
 
