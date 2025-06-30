@@ -1,7 +1,5 @@
 "use client"
 
-import { supabase } from "@/lib/supabase"
-import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 
 export default function Home() {
@@ -29,23 +27,7 @@ export default function Home() {
         <p className="mt-2 text-lg text-center text-gray-600">
           Find or list student summer subleases easily.
         </p>
-
-        <button
-          onClick={() => router.push("/viewpostings")}
-          className="mt-6 px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          View Sublease Postings
-        </button>
-
-        <button
-          onClick={() => router.push("/makeposting")}
-          className="mt-6 px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          Post Your Own Sublease
-        </button>
       </main>
     </div>
   )
 }
-
-

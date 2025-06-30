@@ -29,11 +29,16 @@ export default function Signup() {
       return
     }
 
-    const user = authData?.user
-    if (!user) {
-      setError("Signup succeeded but user data was missing.")
-      return
-    }
+// Refetch user to ensure UUID is available
+const { data: currentUser, error: userFetchError } = await supabase.auth.getUser()
+
+if (userFetchError || !currentUser?.user) {
+  setError("Signup succeeded but could not retrieve user info: " + (userFetchError?.message || "Unknown error"))
+  return
+}
+
+const user = currentUser.user
+
 
     // Step 2: Insert into `User` table, using email_id field from your database
     const { error: insertError } = await supabase.from("User").insert({
@@ -51,7 +56,7 @@ export default function Signup() {
     }
 
     // Step 3: Redirect to homepage (or another page)
-    router.push("/")
+    router.push("/dashboard")
   }
 
   return (

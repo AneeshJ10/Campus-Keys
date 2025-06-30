@@ -43,7 +43,7 @@ export default function CreateListing() {
     if (insertError) {
       setError(insertError.message)
     } else {
-      router.push("/") // redirect on success
+      router.push("/dashboard") // redirect on success
     }
   }
 
