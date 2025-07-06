@@ -6,11 +6,14 @@ type Props = {
   };
 };
 
-export default async function ListingDetailPage({ params }: Props) {
+export default async function ListingDetailPage(props: Props) {
+  const params = await props.params; // ✅ wait for params to resolve
+  const { listingId } = params;
+
   const { data, error } = await supabase
     .from('Listing')
     .select('*')
-    .eq('listing_id', params.listingId) // treat as string if it's a UUID
+    .eq('listing_id', listingId)
     .single();
 
   if (error) {
